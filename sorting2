@@ -1,0 +1,44 @@
+AREA SORTING, CODE, READWRITE
+
+ENTRY		
+				ADR R1, ARR
+				ADR R8, ARR
+				MOV R3, #10
+				
+			
+BLOOP
+
+			MOV R10, #0
+			SUB R3, R3, #1
+			MOV R7, #0 ;COUNTER FOR LOOP
+TRAV
+				LDR R4, [R1]
+				LDR R5, [R1,#4]
+				
+				CMP R4, R5
+				MOVGT R6, R5
+				MOVGT R5, R4
+				MOVGT R4, R6
+				STRGT	R4, [R1]
+				STRGT R5, [R1,#4]
+				MOVGT R10, #1
+				
+				ADD R1, R1, #4
+				ADD R7,R7, #1
+				CMP R7, #9
+
+				BLT TRAV
+				
+				MOV R1, R8
+				CMP R10, #1
+				BEQ BLOOP
+				
+				
+
+				
+
+LOOP		B LOOP
+
+ARR	DCD	10,9,8,7,6,5,4,3,2,1
+
+				END
