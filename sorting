@@ -1,0 +1,41 @@
+AREA SORT, CODE, READWRITE
+				
+				
+ENTRY 	
+			ADR R0, ARR
+			ADR R7, ARR
+			MOV R6,#9
+			MOV R8,#10
+			
+EXTRAV
+
+			MOV R0, R7
+			SUBS R8, #1
+			CMP R8, #0
+			
+INTRAV	
+			LDR R2, [R0]
+			LDR R3, [R0, #4]
+			SUBS R6, R6, #1
+			CMP R2, R3
+			
+			
+			MOVGT R4, R2
+			MOVGT R2, R3
+			MOVGT R3, R4
+			
+			STRGT R2, [R0]
+			STRGT R3, [R0,#4]
+			
+			CMP R6, #0
+			BEQ LOOP
+			ADD R0,R0,#4
+			B EXTRAV
+			
+			
+				
+LOOP	B LOOP
+
+ARR		DCD 1,5,4,2,7,6,8,9,3,10
+	
+			end
